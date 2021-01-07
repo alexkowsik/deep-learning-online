@@ -96,7 +96,7 @@ Ein Beispiel: bei einem linearen Filter wäre die Identitätsfunktion</p>
 <p>Hier mal das durch das Original-Paper bekannt gewordene <strong>152-layer ResNet</strong> im Vergleich zum prominenten VGG-19 Netz. Die gestrichelten skip-connections im rechten Bild kennzeichnen dabei 1x1 convolutions zur Anpassung der Dimensionen.</p>
 <h3 id="performances-von-resnets">Performances von ResNets</h3>
 <figure>
-<img src="../images/performance.png" style="width:65.0%" alt="" /><figcaption>Performance von ResNet (original paper)</figcaption>
+<img src="../images/performance.png" alt="" /><figcaption>Performance von ResNet (original paper)</figcaption>
 </figure>
 <p>Und tatsächlich sind sehr tiefe ResNets ziemlich effizient trainierbar und erzielen gute Resultate. Wie in der obigen Abbildung zu erkennen scheinen ResNets nicht vom degeneration problem betroffen zu sein. Das Hinzufügen von mehr layern führt tatsächlich zu einem niedrigeren Fehler und besserer Performance, sowohl auf den Trainings- als auch auf den Testdaten. Tiefe ResNets scheinen mindestens genauso gut und besser zu sein wie weniger tiefe, alle zusätzlichen layer nutzen scheinbar ihr Potential, die Performance zu verbessern.</p>
 <p>Wie in Abbildung X zu erkannen, gewannen ResNets mit dem berühmten ResNet-152 die ImageNet comepetition im Jahre 2015 mit einem Fehler von nur 3.57% und lösten damit das bis daher beste GoogLeNet mit einem Fehler von 6.7% und 22 layern deutlich ab. Interessanterweise hatte das ResNet-152 viel weniger Parameter als die anderen Wettbewerber und somit auch schneller trainierbar, war jedoch mit 152 layern sehr viel tiefer. Mehr dazu findet sich im übernächsten Kapitel zum Training von ResNets.</p>

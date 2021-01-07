@@ -101,7 +101,7 @@ Hier mal das durch das Original-Paper bekannt gewordene **152-layer ResNet** im 
 
 ### Performances von ResNets
 
-![Performance von ResNet (original paper)](../images/performance.png){ width=65% }
+![Performance von ResNet (original paper)](../images/performance.png)
 
 Und tatsächlich sind sehr tiefe ResNets ziemlich effizient trainierbar und erzielen gute Resultate. Wie in der obigen Abbildung zu erkennen scheinen ResNets nicht vom degeneration problem betroffen zu sein. Das Hinzufügen von mehr layern führt tatsächlich zu einem niedrigeren Fehler und besserer Performance, sowohl auf den Trainings- als auch auf den Testdaten. Tiefe ResNets scheinen mindestens genauso gut und besser zu sein wie weniger tiefe, alle zusätzlichen layer nutzen scheinbar ihr Potential, die Performance zu verbessern.
 
