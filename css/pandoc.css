@@ -2,6 +2,8 @@
 * Based on: https://gist.github.com/killercup/5917178
 */
 
+@import url(//fonts.googleapis.com/css?family=Poppins);
+
 html {
     font-size: 100%;
     overflow-y: scroll;
@@ -284,6 +286,12 @@ table td {
 
 nav {
     margin-top: 0;
+}
+
+.center {
+    text-align: center;
+    font-size: 1.15em;
+    margin: 30px 0;
 }
 
 @media only screen and (min-width: 480px) {
