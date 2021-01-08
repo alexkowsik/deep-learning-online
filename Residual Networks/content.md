@@ -14,7 +14,7 @@ Bevor wir uns genauer anschauen, wie ResNets aussehen und funktionieren, betrach
 
 ### Warum möchte man _tiefe_ neuronale Netze?
 
-Um zu verstehen, warum tiefe Netze oftmals bessere Performance liefern als weniger tiefe Netze, ist es hilfreich, sich noch einmal vor Augen zu führen, wie und warum ein neuronal Netz überhaupt funktioniert, hier mal am Beispiel von **Convolutional Neural Networks**.
+Um zu verstehen, warum tiefe Netze oftmals bessere Performance liefern als weniger tiefe Netze, ist es hilfreich, sich noch einmal vor Augen zu führen, wie und warum ein tiefes neuronal Netz überhaupt funktioniert, hier mal am Beispiel von **Convolutional Neural Networks**.
 
 ![CNNs visualisiert](images/deepNetVis.png)
 
@@ -22,7 +22,7 @@ Ein ConvNet besteht in der Regel aus mehrern hintereinander geschalteten convolu
 
 Dabei ist es so, dass die gelernten features von Schicht zu Schicht immer abstrakter werden. Man kann es sich so vorstellen, dass die ersten layer lernen, Kanten und Ecken zu erkennen, weitere layer lernen, diese Kanten zu Texturen oder Formen zusammenzusetzen und somit Objektteile zu erkennen, und die letzten Schichten lernen, wie sich diese Objektteile zueinander verhalten und zu ganzen Objekten zusammensetzen. Dadurch wird dann Bilderkennung möglich. In der obigen Abbildung sind die einzelnen Schichten eines ConvNets visualisiert und zeigen diesen Umstand noch einmal eindrücklich, auch wenn es nicht immer der Fall sein muss, dass diese features visuell gut von uns Menschen interpretiert werden können.
 
-Theoretisch ist es möglich, mit nur wenigen layern Klassifikation lediglich anhand der ersten low level features wie den Kanten vorzunehmen, jedoch ist es praktisch nur sehr schwer umzusetzen, da dies extrem viele Trainingsbeispiele und sehr lange Trainingszeit erfordert. Daher ist das Hinzufügen von weiteren layern nur sinnvoll. Es erlaubt es, auf eine effizientere Weise mehr und abstraktere (somit auch bessere) features zu lernen.
+Theoretisch ist es möglich, mit nur wenigen layern Klassifikation lediglich anhand der ersten low level features wie den Kanten vorzunehmen (_'Universal approximation theorem'_), jedoch ist es praktisch nur sehr schwer umzusetzen, da dies extrem viele Trainingsbeispiele und sehr lange Trainingszeit erfordert. Daher ist das Hinzufügen von weiteren layern nur sinnvoll. Es erlaubt es, auf eine effizientere Weise mehr und abstraktere (somit auch bessere) features zu lernen.
 
 Dies ist nicht nur bei Bilderkennung mit ConvNets der Fall. Neuronale Netze sind **universelle Funktionsapproximatoren**. Je mehr layer ein neuronales Netz hat, desto einfacher ist es, immer komplexere Funktionen zu lernen und sich immer mehr der zu lernenden Idealfunktion anzunähern.
 
