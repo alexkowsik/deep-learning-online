@@ -98,31 +98,84 @@ Ein Beispiel: bei einem linearen Filter wäre die Identitätsfunktion</p>
 <figure>
 <img src="../images/performance.png" alt="" /><figcaption>Performance von ResNet (original paper)</figcaption>
 </figure>
-<p>Und tatsächlich sind sehr tiefe ResNets ziemlich effizient trainierbar und erzielen gute Resultate. Wie in der obigen Abbildung zu erkennen scheinen ResNets nicht vom degeneration problem betroffen zu sein. Das Hinzufügen von mehr layern führt tatsächlich zu einem niedrigeren Fehler und besserer Performance, sowohl auf den Trainings- als auch auf den Testdaten. Tiefe ResNets scheinen mindestens genauso gut und besser zu sein wie weniger tiefe, alle zusätzlichen layer nutzen scheinbar ihr Potential, die Performance zu verbessern.</p>
-<p>Wie in Abbildung X zu erkannen, gewannen ResNets mit dem berühmten ResNet-152 die ImageNet comepetition im Jahre 2015 mit einem Fehler von nur 3.57% und lösten damit das bis daher beste GoogLeNet mit einem Fehler von 6.7% und 22 layern deutlich ab. Interessanterweise hatte das ResNet-152 viel weniger Parameter als die anderen Wettbewerber und somit auch schneller trainierbar, war jedoch mit 152 layern sehr viel tiefer. Mehr dazu findet sich im übernächsten Kapitel zum Training von ResNets.</p>
-<p>Seit dem konnten Architekturen von über 1000 layern erfolgreich trainiert werden, und im sehr theoretischen Umfeld auch Netze mit 2000+ layern, sie werden in der Praxis jedoch nicht wirklich eingesetzt, da sie viel zu unnpraktikabel sind. Denn auch ResNets haben ihre Grenzen. Ab einem bestimmten Punkt läuft man nämlich auch Gefahr, die Trainingsdaten zu overfitten, sodass die Performance auch bei ResNets irgendwann abnimmt und mehr layer nicht mehr nützlich, sondern eher schädlich werden.</p>
+<p>Und tatsächlich sind sehr tiefe ResNets ziemlich effizient trainierbar und erzielen gute Resultate. Wie in der obigen Abbildung zu erkennen scheinen ResNets nicht vom degeneration problem betroffen zu sein. Das Hinzufügen von mehr layern führt tatsächlich zu einem <strong>niedrigeren Fehler und besserer Performance</strong>, sowohl auf den Trainings- als auch auf den Testdaten. Tiefe ResNets scheinen mindestens genauso gut und besser zu sein wie weniger tiefe, alle zusätzlichen layer nutzen scheinbar ihr Potential, die Performance zu verbessern.</p>
+<p>Wie in Abbildung X zu erkannen, gewannen ResNets mit dem berühmten ResNet-152 die <strong>ImageNet comepetition</strong> im Jahre 2015 mit einem Fehler von nur 3.57% und lösten damit das bis daher beste GoogLeNet mit einem Fehler von 6.7% und 22 layern deutlich ab. Interessanterweise hatte das ResNet-152 viel weniger Parameter als die anderen Wettbewerber und somit auch schneller trainierbar, war jedoch mit 152 layern sehr viel tiefer. Mehr dazu findet sich im übernächsten Kapitel zum Training von ResNets.</p>
+<p>Seit dem konnten Architekturen von <strong>über 1000 layern</strong> erfolgreich trainiert werden, und im sehr theoretischen Umfeld auch Netze mit 2000+ layern, sie werden in der Praxis jedoch nicht wirklich eingesetzt, da sie viel zu unnpraktikabel sind. Denn auch ResNets haben ihre Grenzen. Ab einem bestimmten Punkt läuft man nämlich auch Gefahr, die Trainingsdaten zu overfitten, sodass die Performance auch bei ResNets irgendwann abnimmt und mehr layer nicht mehr nützlich, sondern eher schädlich werden.</p>
 <h3 id="warum-genau-funktioniert-das-nochmal">Warum genau funktioniert das nochmal?</h3>
 <p>Zum einen sind die guten Performances von ResNets auf den Umstand zurückzuführen, dass das <strong>Lernen von Residuen</strong> scheinbar grundsätzlich einfacher zu sein scheint, als das direkte Approximieren einer Zielfunktion. Damit lassen sich auch sehr viel einfacher <strong>Identitätsfunktionen</strong> lernen, sodass es einem größeren Netz die Möglichkeit gibt, wenigstens genauso gut zu sein wie ein gleiches kleineres. Layer, die der Performance nur schaden, können einfach übersprungen werden, indem die Eingabe in diese layer unverändert an hintere layer weitergereicht wird. Dies geschieht auch ganz natürlich und dynamisch durch backpropagation, man braucht keinen zusätzlichen Hyperparameter für die Anzahl der layer hinzuzufügen.</p>
 <p>Dadurch, dass gewisse layer einfach übersprungen werden könnten, ähnelt das Training von ResNets dem <strong>Training eines ensembles</strong>. Es erlaubt es, unterschiedliche Teile des Netzwerks zu unterschiedlichen Zeiten und Raten zu trainieren, abhängig davon, wie der Error im Netz zurückpropagiert wird. Somit können durch bestimmte Trainingsbeispiele auf natürliche Weise gezielt Teile des Netztes trainiert werden.</p>
 <p>Da nur Residuen gelernt werden, geschieht im Prinzip nur ein <strong>fine-tuning des Input</strong> in einen ResNet Block. Er wird von jedem layer nur ein Stück weit angepasst, um näher an die zu lernende Idealfunktion zu kommen. Die erwartete Ausgabe muss somit nicht ‘von scratch’ generiert werden. Dies erklärt auch, warum das Hinzufügen von layern die Performance noch weiter erhöht - der Input wird mit jedem layer immer noch ein ganz kleines Stück verbessert, zumindest solange, bis man an Overfitting stößt.</p>
 <h3 id="training-von-resnets">Training von ResNets</h3>
 <ul>
-<li>vorteile: viel weniger Parameter = schnelleres end-to-end training mit normalen Verfahren ohne dass man etwas ändern muss, skip connections einzige Änderung</li>
+<li>vorteile: viel weniger Parameter = schnelleres end-to-end training mit normalen Verfahren ohne dass man etwas ändern muss</li>
+<li>im Prinzip sind die skip connections die einzige große Änderung</li>
 <li>forward propagation</li>
+</ul>
+<p><img src="../images/forward_prop1.png" style="width:65.0%" /></p>
+<p><img src="../images/forward_prop2.png" style="width:30.0%" /></p>
+<ul>
 <li>backpropagation</li>
-<li>training + beispiele (evtl mit kosten etc)</li>
+</ul>
+<p><img src="../images/back_prop.png" style="width:65.0%" /></p>
+<ul>
+<li>training + beispiele?</li>
 </ul>
 <h3 id="varianten-und-architekturen-implementierung">Varianten und Architekturen + Implementierung</h3>
 <ul>
 <li>wann welche layer, activation functions, bn etc</li>
-<li>code</li>
-<li>Andere Architekturen (HighwayNets, DenseNets, ResNext)</li>
+<li>andere Architekturen (HighwayNets, DenseNets, ResNext)</li>
 </ul>
+<!-- HTML generated using hilite.me -->
+<div style="background: #f0f0f0; overflow:auto;width:auto;font-size:0.9em;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+<table>
+<tr>
+<td>
+<pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre>
+</td>
+<td>
+<pre style="margin: 0; line-height: 125%"><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">ResidualBlock</span>(nn<span style="color: #666666">.</span>Module):
+    <span style="color: #007020; font-weight: bold">def</span> <span style="color: #06287e">__init__</span>(<span style="color: #007020">self</span>, in_channels, out_channels):
+        <span style="color: #007020">super</span>()<span style="color: #666666">.</span>__init__()
+        <span style="color: #007020">self</span><span style="color: #666666">.</span>in_channels, <span style="color: #007020">self</span><span style="color: #666666">.</span>out_channels <span style="color: #666666">=</span>  in_channels, out_channels
+        <span style="color: #007020">self</span><span style="color: #666666">.</span>blocks <span style="color: #666666">=</span> nn<span style="color: #666666">.</span>Identity()
+        <span style="color: #007020">self</span><span style="color: #666666">.</span>shortcut <span style="color: #666666">=</span> nn<span style="color: #666666">.</span>Identity()
+
+    <span style="color: #007020; font-weight: bold">def</span> <span style="color: #06287e">forward</span>(<span style="color: #007020">self</span>, x):
+        residual <span style="color: #666666">=</span> x
+        <span style="color: #007020; font-weight: bold">if</span> <span style="color: #007020">self</span><span style="color: #666666">.</span>should_apply_shortcut: residual <span style="color: #666666">=</span> <span style="color: #007020">self</span><span style="color: #666666">.</span>shortcut(x)
+        x <span style="color: #666666">=</span> <span style="color: #007020">self</span><span style="color: #666666">.</span>blocks(x)
+        x <span style="color: #666666">+=</span> residual
+        <span style="color: #007020; font-weight: bold">return</span> x
+
+    <span style="color: #555555; font-weight: bold">@property</span>
+    <span style="color: #007020; font-weight: bold">def</span> <span style="color: #06287e">should_apply_shortcut</span>(<span style="color: #007020">self</span>):
+        <span style="color: #007020; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #666666">.</span>in_channels <span style="color: #666666">!=</span> <span style="color: #007020">self</span><span style="color: #666666">.</span>out_channels
+</pre>
+</td>
+</tr>
+</table>
+</div>
 <h2 id="zusammenfassung-und-weiterführendes">Zusammenfassung und Weiterführendes</h2>
 <ul>
-<li>Resnets erlauben Training von sehr tiefen Netzen</li>
+<li>Zusammenfassung</li>
 <li>warum nicht überall genutzt?</li>
-<li>Vorteile + Nachteile</li>
+<li>nochmal kurz Vorteile + Nachteile</li>
 <li>Anwendungsgebiete</li>
 <li>Abschluss <br><br><br> <br><br><br></li>
 </ul>
