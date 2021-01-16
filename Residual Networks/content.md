@@ -105,6 +105,8 @@ Hier mal das durch das Original-Paper bekannt gewordene **152-layer ResNet** im 
 
 Und tatsächlich sind sehr tiefe ResNets ziemlich effizient trainierbar und erzielen gute Resultate. Wie in der obigen Abbildung zu erkennen scheinen ResNets nicht vom degeneration problem betroffen zu sein. Das Hinzufügen von mehr layern führt tatsächlich zu einem **niedrigeren Fehler und besserer Performance**, sowohl auf den Trainings- als auch auf den Testdaten. Tiefe ResNets scheinen mindestens genauso gut und besser zu sein wie weniger tiefe, alle zusätzlichen layer nutzen scheinbar ihr Potential, die Performance zu verbessern.
 
+![ImageNet competition: ResNet 152 überholt alle anderen](images/imagenet_competition2.png){ width=80% }
+
 Wie in Abbildung X zu erkannen, gewannen ResNets mit dem berühmten ResNet-152 die **ImageNet comepetition** im Jahre 2015 mit einem Fehler von nur 3.57% und lösten damit das bis daher beste GoogLeNet mit einem Fehler von 6.7% und 22 layern deutlich ab. Interessanterweise hatte das ResNet-152 viel weniger Parameter als die anderen Wettbewerber und somit auch schneller trainierbar, war jedoch mit 152 layern sehr viel tiefer. Mehr dazu findet sich im übernächsten Kapitel zum Training von ResNets.
 
 Seit dem konnten Architekturen von **über 1000 layern** erfolgreich trainiert werden, und im sehr theoretischen Umfeld auch Netze mit 2000+ layern, sie werden in der Praxis jedoch nicht wirklich eingesetzt, da sie viel zu unnpraktikabel sind. Denn auch ResNets haben ihre Grenzen. Ab einem bestimmten Punkt läuft man nämlich auch Gefahr, die Trainingsdaten zu overfitten, sodass die Performance auch bei ResNets irgendwann abnimmt und mehr layer nicht mehr nützlich, sondern eher schädlich werden.
