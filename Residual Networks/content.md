@@ -121,7 +121,15 @@ Da nur Residuen gelernt werden, geschieht im Prinzip nur ein **fine-tuning des I
 
 ### Training von ResNets
 
--   vorteile: viel weniger Parameter = schnelleres end-to-end training mit normalen Verfahren ohne dass man etwas ändern muss
+Schauen wir uns nun an, wie genau das Training von ResNets aussieht. Der Vorteil bei ResNets gegenüber anderen Netzwerk-Architekturen ist, dass ResNets zwar mehr layer besitzen, jedoch sehr viel weniger Parameter. Das end-to-end Training verkürzt sich dadurch mit normalen Verfahren oft trotz der höheren Anzahl an layern. Vergleichen wir zum Beispiel mal das ResNet-152 mit dem VGG-16 (ein grafischer Vergleich ist in Abbildung x zu sehen). Das VGG-16 besteht aus mehr als 143,6 Millionen Parametern, während das ResNet-152 nur 11,5 Millionen Parameter besitzt. Auch bei der Komplexität gibt es einen großen Unterschied. In dem Original-Paper zu ResNets geben die Autoren für das VGG-19 19,6 Milliarden FLOPs an, während ihr 34-layer Basisnetz mit nur 3,6 Milliard FLOPs auskommt, also nur 18% des VGG-19!
+
+Das funktioniert auch deswegen besonders gut, da sich bei reinen ResNets nichts grundlegendes bei den foward- und backward propagation Schritten ändert, die skip connections sind die einzige Änderung. ResNets können also ganz normal mit herkömmlichen Verfahren trainiert werden.
+
+GRAFIK
+
+
+
+
 -   im Prinzip sind die skip connections die einzige große Änderung
 -   forward propagation   
 
