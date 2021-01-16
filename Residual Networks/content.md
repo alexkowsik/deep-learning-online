@@ -28,7 +28,7 @@ Dies ist nicht nur bei Bilderkennung mit ConvNets der Fall. Neuronale Netze sind
 
 Dieser Trend, immer mehr layer zu benutzen um die Performance für eine bestimmte Aufgabe zu steigern, hat sich in der Vergangenheit auch gezeigt.
 
-![ImageNet competition: Mehr layer = bessere Performance?](images/imagenet_competition.jpeg){ width=80% }
+![ImageNet competition: Mehr layer = bessere Performance?](images/imagenet_competition.png){ width=80% }
 
 Betrachtet man die **ImageNet competition** bist zum Jahr 2015, so stellt man fest, dass die Architekturen mit den besten Ergebnissen von Jahr zu Jahr immer tiefer wurden. Auch an anderen Datensätzen war dies erkennbar - tiefere Netze erreichten bessere Genauigkeiten.
 
