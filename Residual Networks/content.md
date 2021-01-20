@@ -75,7 +75,7 @@ Betrachten wir uns einige hinterinander geschaltete layer eines feed-foward Netz
 
 Der Hauptgrund dafür wird ersichtlich, wenn wir uns die Motivation für ResNets noch einmal anschauen. Es ist wie in den obigen Kapiteln beschrieben natürlich wünschenswert, wenn ein tiefes Netz wenigstens genauso gut ist wie ein weniger tiefes, gleich aufgebautes Netz. In der Praxis kommt jedoch das degeneration problem dazwischen, und ein Hauptgrund dafür ist, dass die Identitätsfunktion normalerweise nur schwer gelernt werden kann.
 
-![Lernen von Residuen: Identität nun kein Problem mehr](../images/residuals.png){ width=70% }
+![Direktes Lernen der Zielfunktion  vs.  Lernen von Residuen](../images/residuals.png){ width=70% }
 
 Mit der **Reformulierung des Lernprozesses** zu dem Lernen von Residuen wird dieses Problem nun jedoch gelöst. Wenn die Identitätsfunktion die optimale Funktion für die betrachteten layer ist, kann der solver die Gewichte von _F(x)_ relativ einfach gegen 0 steuern, da sie ohnehin wie oben besprochen bereits relativ nah um die 0 herum verteilt sind, sodass _F(x) = 0_ wird. Somit wird mit H(x) = 0 + x = x die gewünschte Identitätsfunktion erreicht. Die Eingabe in die layer wird einfach unverändert an hintere layer weitergereicht. Und wenn _H(x)_ nicht die Identiät ist, lernen die layer mit _F(x)_ eben alles nötige "was _x_ noch fehlt" um _H(x)_ zu approximieren.
 
