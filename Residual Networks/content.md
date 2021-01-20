@@ -1,11 +1,12 @@
-% Residual Neural Networks
-% Alexander Kowsik
-% 05.01.2021
+---
+title: Residual Neural Networks
+author: Alexander Kowsik
+date: 05.01.2021
+---
 
 <div id="vid">
 <iframe src="https://drive.google.com/file/d/1lWTWhwSrc8Gqd-9N4KbeXVkC3J0RkWnk/preview" height="100%" width="100%"></iframe></div>
 
-#### Momentan sind noch nicht alle Grafiken urheberrechtsfrei! Auch sind einige der Grafiken nur schnell von Hand als Idee erstellt worden und werden überarbeitet. Das werde ich demnächst noch ändern.
 
 ## Motivation
 
@@ -16,7 +17,7 @@ Bevor wir uns genauer anschauen, wie ResNets aussehen und funktionieren, betrach
 
 Um zu verstehen, warum tiefe Netze oftmals bessere Performance liefern als weniger tiefe Netze, ist es hilfreich, sich noch einmal vor Augen zu führen, wie und warum ein tiefes neuronal Netz überhaupt funktioniert, hier mal am Beispiel von **Convolutional Neural Networks**.
 
-![CNNs visualisiert](images/deepNetVis.png)
+![CNNs visualisiert](images/deepNetVis.png){ width=90% }
 
 Ein ConvNet besteht in der Regel aus mehrern hintereinander geschalteten convolutional layern mit anschließenden pooling- und batch-normalization layern. Am Ende des Netzwerkes finden sich meistens einige wenige fully-connected layer, die beispielsweise in einem Ausgabe-layer zur Klassifikation enden können. Die Idee für ConvNets entspringt aus den Erkenntnissen aus der klassischen Computergrafik, da die zu lernende Gewichte eines ConvNets die Parameter von linearen Filtern sind, die genutzt werden können, um Strukturen in einem Bild zu erkennen.
 
@@ -28,7 +29,7 @@ Dies ist nicht nur bei Bilderkennung mit ConvNets der Fall. Neuronale Netze sind
 
 Dieser Trend, immer mehr layer zu benutzen um die Performance für eine bestimmte Aufgabe zu steigern, hat sich in der Vergangenheit auch gezeigt.
 
-![ImageNet competition: Mehr layer = bessere Performance?](images/imagenet_competition.png){ width=80% }
+![ImageNet competition: Mehr layer = bessere Performance?](images/imagenet_competition.png){ width=60% }
 
 Betrachtet man die **ImageNet competition** bist zum Jahr 2015, so stellt man fest, dass die Architekturen mit den besten Ergebnissen von Jahr zu Jahr immer tiefer wurden. Auch an anderen Datensätzen war dies erkennbar - tiefere Netze erreichten bessere Genauigkeiten.
 
@@ -38,7 +39,7 @@ Mit diesen Beobachtungen könnte man schlussfolgern, dass tiefe Netze immer bess
 
 Es hat sich herausgestellt, dass das Training von sehr tiefen Netzen, also von Netzen mit über ungefähr 25 oder 30 layern, Probleme bereitet und nicht mehr ohne weiteres möglich ist. Warum ist das so?
 
-![Degeneration Problem](images/degeneration.jpg)
+![Degeneration Problem](images/degeneration.jpg){ width=85% }
 
 Der Hauptgrund dafür ist ein Umstand der als **'degeneration problem'** bekannt ist. Das Hinzufügen von weiteren layern verbessert zwar zunächst die Trainierbarkeit und Performance eines Netzes, letztere erreicht erwartungsgemäß irgendwann ein gewisses Plateau, fängt jedoch ab einem bestimmten Punkt an, stark abzufallen. Das heißt, insbesondere sind bei sehr tiefen Netzen sowohl der Trainings Error als auch der Test Error viel höher als bei gleichen, weniger tiefen Netzen.
 
@@ -79,11 +80,11 @@ Doch wie genau wird dies in einem ResNet umgesetzt und wie sieht ein ResNet übe
 
 ### Aufbau eines ResNets
 
-![Aufbau eines ResNet-Blocks](../images/resnet_block.png){ width=65% }
+![Aufbau eines ResNet-Blocks](../images/resnet_block.png){ width=55% }
 
 Ein **ResNet** besteht aus einer Reihe von hintereinander geschalteten **ResNet-Blöcken** (s. Abbildung oben). Ein ResNet-Block umfasst typischerweise zwei bis drei normale hidden layer, das könnten beispielsweise zwei Convolutional layer mit anschließenden pooling und batch normalization layern sein wie im Beispiel unten. Es müssen mindestens zwei sein, da sie sich ansonsten nicht von normalen linearen Netzen unterscheiden würden (s. unten). Das besondere an ResNets sind jedoch die sogenannten 'shortcut-' oder **'skip-connections'**, welche die Eingabe in die layer weiter nach vorne transportieren wo diese zu der Ausgabe aufaddiert werden, in der Regel noch bevor die Aktivierungsfunktion angewandt wird.
 
-![Beispiel für einen ResNet-Block mit convoltional layern](../images/1x1.png){ width=65% }
+![Beispiel für einen ResNet-Block mit convoltional layern](../images/1x1.png){ width=60% }
 
 Formal gesehen ist ein ResNet Block _y_ definiert als
 
@@ -95,60 +96,9 @@ Da die Dimension der Eingabe nicht unbedingt der Dimension der Ausgabe der layer
 
 Ansonsten besitzen die skip-connections bei klassischen ResNets keine weiteren Parameter die gelernt werden müssten, sodass durch Setzen der Gewichte _Wi_ auf 0 der Block tatsächlich die Identitätsfunktion nähert.
 
-![VGG-19 vs ResNet-152](../images/vgg_resnets.png){ height=65% }
+Viele bekannte Deep Learning Bibliotheken wie Tensorflow und PyTorch enthalten oftmals vorimplementierte ResNet Architekturen. Möchte man jedoch ein ResNet von Grund auf selbst schreiben, ist hier mal eine Beispielimplementierung eines ResNet-Blocks in PyTorch vorgestellt. Diese Blöcke können dann hintereinander gesetzt werden, um ein ResNet zu bauen:
 
-Hier mal das durch das Original-Paper bekannt gewordene **152-layer ResNet** im Vergleich zum prominenten VGG-19 Netz. Die gestrichelten skip-connections im rechten Bild kennzeichnen dabei 1x1 convolutions zur Anpassung der Dimensionen.
-
-### Performances von ResNets
-
-![Performance von ResNet (original paper)](../images/performance.png)
-
-Und tatsächlich sind sehr tiefe ResNets ziemlich effizient trainierbar und erzielen gute Resultate. Wie in der obigen Abbildung zu erkennen scheinen ResNets nicht vom degeneration problem betroffen zu sein. Das Hinzufügen von mehr layern führt tatsächlich zu einem **niedrigeren Fehler und besserer Performance**, sowohl auf den Trainings- als auch auf den Testdaten. Tiefe ResNets scheinen mindestens genauso gut und besser zu sein wie weniger tiefe, alle zusätzlichen layer nutzen scheinbar ihr Potential, die Performance zu verbessern.
-
-![ImageNet competition: ResNet 152 überholt alle anderen](images/imagenet_competition2.png){ width=80% }
-
-Wie in Abbildung X zu erkannen, gewannen ResNets mit dem berühmten ResNet-152 die **ImageNet comepetition** im Jahre 2015 mit einem Fehler von nur 3.57% und lösten damit das bis daher beste GoogLeNet mit einem Fehler von 6.7% und 22 layern deutlich ab. Interessanterweise hatte das ResNet-152 viel weniger Parameter als die anderen Wettbewerber und somit auch schneller trainierbar, war jedoch mit 152 layern sehr viel tiefer. Mehr dazu findet sich im übernächsten Kapitel zum Training von ResNets.
-
-Seit dem konnten Architekturen von **über 1000 layern** erfolgreich trainiert werden, und im sehr theoretischen Umfeld auch Netze mit 2000+ layern, sie werden in der Praxis jedoch nicht wirklich eingesetzt, da sie viel zu unnpraktikabel sind. Denn auch ResNets haben ihre Grenzen. Ab einem bestimmten Punkt läuft man nämlich auch Gefahr, die Trainingsdaten zu overfitten, sodass die Performance auch bei ResNets irgendwann abnimmt und mehr layer nicht mehr nützlich, sondern eher schädlich werden.
-
-### Warum genau funktioniert das nochmal?
-
-Zum einen sind die guten Performances von ResNets auf den Umstand zurückzuführen, dass das **Lernen von Residuen** scheinbar grundsätzlich einfacher zu sein scheint, als das direkte Approximieren einer Zielfunktion. Damit lassen sich auch sehr viel einfacher **Identitätsfunktionen** lernen, sodass es einem größeren Netz die Möglichkeit gibt, wenigstens genauso gut zu sein wie ein gleiches kleineres. Layer, die der Performance nur schaden, können einfach übersprungen werden, indem die Eingabe in diese layer unverändert an hintere layer weitergereicht wird. Dies geschieht auch ganz natürlich und dynamisch durch backpropagation, man braucht keinen zusätzlichen Hyperparameter für die Anzahl der layer hinzuzufügen.
-
-Dadurch, dass gewisse layer einfach übersprungen werden könnten, ähnelt das Training von ResNets dem **Training eines ensembles**. Es erlaubt es, unterschiedliche Teile des Netzwerks zu unterschiedlichen Zeiten und Raten zu trainieren, abhängig davon, wie der Error im Netz zurückpropagiert wird. Somit können durch bestimmte Trainingsbeispiele auf natürliche Weise gezielt Teile des Netztes trainiert werden.
-
-Da nur Residuen gelernt werden, geschieht im Prinzip nur ein **fine-tuning des Input** in einen ResNet Block. Er wird von jedem layer nur ein Stück weit angepasst, um näher an die zu lernende Idealfunktion zu kommen. Die erwartete Ausgabe muss somit nicht 'von scratch' generiert werden. Dies erklärt auch, warum das Hinzufügen von layern die Performance noch weiter erhöht - der Input wird mit jedem layer immer noch ein ganz kleines Stück verbessert, zumindest solange, bis man an Overfitting stößt.
-
-### Training von ResNets
-
-Schauen wir uns nun an, wie genau das Training von ResNets aussieht. Der Vorteil bei ResNets gegenüber anderen Netzwerk-Architekturen ist, dass ResNets zwar mehr layer besitzen, jedoch sehr viel weniger Parameter. Das end-to-end Training verkürzt sich dadurch mit normalen Verfahren oft trotz der höheren Anzahl an layern. Vergleichen wir zum Beispiel mal das ResNet-152 mit dem VGG-16 (ein grafischer Vergleich ist in Abbildung x zu sehen). Das VGG-16 besteht aus mehr als 143,6 Millionen Parametern, während das ResNet-152 nur 11,5 Millionen Parameter besitzt. Auch bei der Komplexität gibt es einen großen Unterschied. In dem Original-Paper zu ResNets geben die Autoren für das VGG-19 19,6 Milliarden FLOPs an, während ihr 34-layer Basisnetz mit nur 3,6 Milliard FLOPs auskommt, also nur 18% des VGG-19!
-
-Das funktioniert auch deswegen besonders gut, da sich bei reinen ResNets nichts grundlegendes bei den foward- und backward propagation Schritten ändert, die skip connections sind die einzige Änderung. ResNets können also ganz normal mit herkömmlichen Verfahren trainiert werden.
-
-GRAFIK
-
-
-
-
--   im Prinzip sind die skip connections die einzige große Änderung
--   forward propagation   
-
-![](../images/forward_prop1.png){ width=65% }
-
-![](../images/forward_prop2.png){ width=30% }
-
--   backpropagation    
-
-![](../images/back_prop.png){ width=65% }
-
--   training + beispiele?
-
-### Varianten und Architekturen + Implementierung
-
--   wann welche layer, activation functions, bn etc
--   andere Architekturen (HighwayNets, DenseNets, ResNext)
-
-<!-- HTML generated using hilite.me --><div style="background: #f0f0f0; overflow:auto;width:auto;font-size:0.9em;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+<!-- HTML generated using hilite.me --><div class="code" style="background: #f0f0f0; overflow:auto;width:auto;font-size:0.9em;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
  2
  3
  4
@@ -183,15 +133,82 @@ GRAFIK
         <span style="color: #007020; font-weight: bold">return</span> <span style="color: #007020">self</span><span style="color: #666666">.</span>in_channels <span style="color: #666666">!=</span> <span style="color: #007020">self</span><span style="color: #666666">.</span>out_channels
 </pre></td></tr></table></div>
 
+Die folgende Abbildung stellt das durch das Original-Paper bekannt gewordene **152-layer ResNet** in den Vergleich zum prominenten VGG-19 Netz. Die gestrichelten skip-connections im rechten Bild kennzeichnen dabei 1x1 convolutions zur Anpassung der Dimensionen.
+
+![VGG-19 vs ResNet-152](../images/vgg_resnets.png){ height=60% }
+
+### Performances von ResNets
+
+![Performance von ResNet (original paper)](../images/performance.png){ width=90% }
+
+Und tatsächlich sind sehr tiefe ResNets ziemlich effizient trainierbar und erzielen gute Resultate. Wie in der obigen Abbildung zu erkennen scheinen ResNets nicht vom degeneration problem betroffen zu sein. Das Hinzufügen von mehr layern führt tatsächlich zu einem **niedrigeren Fehler und besserer Performance**, sowohl auf den Trainings- als auch auf den Testdaten. Tiefe ResNets scheinen mindestens genauso gut und besser zu sein wie weniger tiefe, alle zusätzlichen layer nutzen scheinbar ihr Potential, die Performance zu verbessern.
+
+![ImageNet competition: ResNet 152 überholt alle anderen](images/imagenet_competition2.png){ width=65% }
+
+Wie in Abbildung X zu erkannen, gewannen ResNets mit dem berühmten ResNet-152 die **ImageNet comepetition** im Jahre 2015 mit einem Fehler von nur 3.57% und lösten damit das bis daher beste GoogLeNet mit einem Fehler von 6.7% und 22 layern deutlich ab. Interessanterweise hatte das ResNet-152 viel weniger Parameter als die anderen Wettbewerber und somit auch schneller trainierbar, war jedoch mit 152 layern sehr viel tiefer. Mehr dazu findet sich im übernächsten Kapitel zum Training von ResNets.
+
+Seit dem konnten Architekturen von **über 1000 layern** erfolgreich trainiert werden, und im sehr theoretischen Umfeld auch Netze mit 2000+ layern, sie werden in der Praxis jedoch nicht wirklich eingesetzt, da sie viel zu unnpraktikabel sind. Denn auch ResNets haben ihre Grenzen. Ab einem bestimmten Punkt läuft man nämlich auch Gefahr, die Trainingsdaten zu overfitten, sodass die Performance auch bei ResNets irgendwann abnimmt und mehr layer nicht mehr nützlich, sondern eher schädlich werden.
+
+### Warum genau funktioniert das nochmal?
+
+Zum einen sind die guten Performances von ResNets auf den Umstand zurückzuführen, dass das **Lernen von Residuen** scheinbar grundsätzlich einfacher zu sein scheint, als das direkte Approximieren einer Zielfunktion. Damit lassen sich auch sehr viel einfacher **Identitätsfunktionen** lernen, sodass es einem größeren Netz die Möglichkeit gibt, wenigstens genauso gut zu sein wie ein gleiches kleineres. Layer, die der Performance nur schaden, können einfach übersprungen werden, indem die Eingabe in diese layer unverändert an hintere layer weitergereicht wird. Dies geschieht auch ganz natürlich und dynamisch durch backpropagation, man braucht keinen zusätzlichen Hyperparameter für die Anzahl der layer hinzuzufügen.
+
+Dadurch, dass gewisse layer einfach übersprungen werden könnten, ähnelt das Training von ResNets dem **Training eines ensembles**. Es erlaubt es, unterschiedliche Teile des Netzwerks zu unterschiedlichen Zeiten und Raten zu trainieren, abhängig davon, wie der Error im Netz zurückpropagiert wird. Somit können durch bestimmte Trainingsbeispiele auf natürliche Weise gezielt Teile des Netztes trainiert werden.
+
+Da nur Residuen gelernt werden, geschieht im Prinzip lediglich ein **fine-tuning des Input** in einen ResNet Block. Er wird von jedem layer nur ein Stück weit angepasst, um näher an die zu lernende Idealfunktion zu kommen. Die erwartete Ausgabe muss somit nicht 'von scratch' generiert werden. Dies erklärt auch, warum das Hinzufügen von layern die Performance noch weiter erhöht - der Input wird mit jedem layer immer noch ein ganz kleines Stück verbessert, zumindest solange, bis man an Overfitting stößt.
+
+### Training von ResNets
+
+Schauen wir uns nun an, wie genau das Training von ResNets aussieht. Der Vorteil bei ResNets gegenüber anderen Netzwerk-Architekturen ist, dass ResNets zwar mehr layer besitzen, jedoch **sehr viel weniger Parameter**. Das end-to-end Training verkürzt sich dadurch mit normalen Verfahren oft trotz der höheren Anzahl an layern. 
+
+Vergleichen wir zum Beispiel mal das ResNet-152 mit dem VGG-16 (ein grafischer Vergleich mit dem VGG-19 ist in Abbildung x zu sehen). Das VGG-16 besteht aus mehr als 143,6 Millionen Parametern, während das ResNet-152 nur 11,5 Millionen Parameter besitzt. Auch bei der Komplexität gibt es einen großen Unterschied. In dem Original-Paper zu ResNets geben die Autoren für das VGG-19 19,6 Milliarden FLOPs an, während ihr 34-layer Basisnetz mit nur 3,6 Milliard FLOPs auskommt, also nur 18% des VGG-19!
+
+Das funktioniert auch deswegen besonders gut, da sich bei reinen ResNets nichts grundlegendes bei den foward- und backward propagation Schritten ändert, die skip connections sind im Prinzip die einzige Änderung. Da diese in der Regel jedoch keine eigenen Parameter besitzen, können ResNets also ganz normal mit herkömmlichen backpropagation Verfahren trainiert werden. Und dies funktioniert besonders gut, da die Gradienten über die skip connections auch direkt zu vorigen layern fließen können.
+
+### Andere Varianten von ResNets
+
+Seit der Entwicklung von ResNets hat es mittlerweile viele Ansätze gegeben, die anfängliche Architektur zu verbessern und weitere, auf den einfachen ResNets aufbauende Netzwerkstrukturen zu entwickeln.
+
+![Test](../images/diff_resnetblocks.png){ width=90% }
+
+Zum einen wurde untersucht, wie viele layer man am besten überspringt und welchen Einfluss die Reihenfolge der einzelnen Elemente in einem ResNet-Block auf die Performance hat. Zum Beispiel könnte man den batch normalizaion layer nach der Addition mit dem 'skip'-Wert platzieren (b), oder die Aktivierungsfunktion schon vor der Addition anwenden (c), oder sie am Ende des Blockes komplett weglassen (d). Die Autoren des entsprechenden paper fanden heraus, dass im Allgemeinen die Anordnung in **(e)** besonders bei sehr tiefen Netzen (~1000 layer) die besten Resultate liefert.
+
+![DenseBlock](../images/dense_block.png){ width=45% }
+
+Zum anderen wurden die Ideen in ResNets auch übernommen, um weitere vergleichbare Architekturen zu entwerfen. **DenseNets** zum Beispiel führen statt nur einer skip-connection in einem layer Block Verbindungen von allem vorangehenden layer zu allen foldenden layern ein, daher der Name _dense_. Dabei werden viele dieser Blöcke wie bei ResNets auch hinterinander geschaltet. Der Vorteil ist, dass dadurch noch weniger Parameter gelernt werden müssen und die Gradienten noch besser propagiert werden können, was oft zu besseren Resultaten als bei ResNets führt.
+
+Zwei weitere prominente Architekturen, die gewissermaßen auf ResNets aufbauen, sind **HighwayNets** und **ResNext**. Erstere führen für die skip-connections eigene Parameter ein, welche lernen, zu welchem Ausmaße die Eingaben durch die skip-connections oder durch den primären Weg weiterpropagiert werden. Die Struktur ähnelt somit den gates in LSTMs. _ResNext_ Netze verfolgen dagegen den Ansatz, statt dem Hintereinanderschalten von einzelnen ResNet-Blöcken, etliche solcher Blöcke stattdessen parallel zu einem größeren Block zu schalten, und dann die größeren Blöcke hintereinander zu legen. Beide Ansätze kommen mit ihren Vor- und Nachteilen und können bei bestimmten Problemen jeweils bessere Ergebnisse erzielen.
 
 
+## Zusammenfassung
 
-## Zusammenfassung und Weiterführendes
+ResNets erlauben es, sehr tiefe Netze zu trainieren. Tiefere Netze erlauben es oftmals, effizienter komplexe Funktionen zu lernen und führen somit zu besseren Ergebnissen. Da einfache Netze wegen des degeneration problems nicht besonders tief sein können, formulieren ResNets das Lernproblem dazu um, in mehreren layer Blöcken Residuen von Eingaben zu einer gewünschten Idealfunktion zu lernen, anstatt letztere direkt mit dem Block zu approximieren. Das erlaubt es, relativ einfach die Identitätsfunktion zu lernen, sodass das Hinzufügen von mehr layern die Performance nicht verschlechtert, sondern im Bestfall ein bisschen mehr verbessert. Umgesetzt wird das ganze über skip-connections, also dem Weitergeben der Ausgabe eines layers an weiter hinten liegende layer.
 
--   Zusammenfassung
--   warum nicht überall genutzt?
--   nochmal kurz Vorteile + Nachteile
--   Anwendungsgebiete
--   Abschluss
-    <br><br><br>
-    <br><br><br>
+Weil ResNets damit besonders erfolgreich waren, vor allem zur der Zeit als sie entwickelt wurden, wurden und werden sie häufig im Zusammenhang mit Bilderkennung genutzt, wo sie große Durchbrüche erzielen konnten. Mit der Zeit entstanden immer mehr Architekturen, die auf ResNets aufbauen, wie zum Beispiel HighwayNets, DenseNets oder ResNext.
+
+Doch auch ResNets haben ihre Grenzen, und man kommt ab einem gewissen Punkt zum overfitting Problem. Daher sollte man stets die Architekture wählen, die sich am besten für ein gegebenes konkretes Problem eignet.
+
+
+<br><br><br>
+<br><br><br>
+
+---
+
+
+### Referenzen
+<div class="references">
+<sup>1</sup> Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun (2016), **Deep Residual Learning for Image Recognition**, _IEEE_, 12. December 
+
+<sup>2</sup> Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun (2016), **Identity Mappings in Deep Residual Networks**. In: _Leibe B., Matas J., Sebe N., Welling M. (eds) Computer Vision_, ECCV 2016
+
+<sup>3</sup> Mohammad Sadegh Ebrahimi, Hossein Karkeh Abadi (2018), **Study of Residual Networks for Image Recognition**, _arXiv:1805.00325_, 21. April
+
+<sup>4</sup> Rupesh Kumar Srivastava, Klaus Greff, Jürgen Schmidhuber (2015), **Highway Networks**, _arXiv:1505.00387_, 03. November
+
+<sup>5</sup> Gao Huang, Zhuang Liu, Laurens van der Maaten, Kilian Q. Weinberger (2017), **Densely Connected Convolutional Networks**, _2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)_, 2017, pp. 2261-2269
+
+<sup>6</sup> Saining Xie; Ross Girshick; Piotr Dollár; Zhuowen Tu; Kaiming He (2017), **Aggregated Residual Transformations for Deep Neural Networks**, _2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)_, 2017, pp. 5987-5995
+</div>
+
+
+<br><br>
