@@ -2,6 +2,9 @@
 title: Residual Neural Networks
 author: Alexander Kowsik
 date: 20.01.2021
+
+header-includes:
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 ---
 
 <div id="vid">
