@@ -163,10 +163,9 @@ ins {
 }
 
 mark {
-    background: #ff0;
+    background: #ffffd9;
     color: #000;
     font-style: italic;
-    font-weight: bold;
 }
 
 sub,
@@ -290,7 +289,7 @@ nav {
 
 .center {
     text-align: center;
-    font-size: 1.15em;
+    font-size: 1.2em;
     margin: 30px 0;
 }
 
@@ -305,6 +304,10 @@ figcaption {
 
 .code {
     margin: 40px 0;
+}
+
+.references p {
+    font-size: 0.8em;
 }
 
 @media only screen and (min-width: 480px) {
