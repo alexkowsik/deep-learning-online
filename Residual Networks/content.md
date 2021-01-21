@@ -43,11 +43,13 @@ Mit diesen Beobachtungen könnte man schlussfolgern, dass tiefe Netze immer bess
 
 Es hat sich herausgestellt, dass das Training von sehr tiefen Netzen, also von Netzen mit über ungefähr 25 oder 30 layern, Probleme bereitet und nicht mehr ohne weiteres möglich ist. Warum ist das so?
 
-![Degeneration Problem<sup>1</sup>](images/plain_net.png){ width=75% }
-
 <span class="mark">Der Hauptgrund dafür ist ein Umstand der als **'degeneration problem'** bekannt ist.</span> Das Hinzufügen von weiteren layern verbessert zwar zunächst die Trainierbarkeit und Performance eines Netzes, letztere erreicht erwartungsgemäß irgendwann ein gewisses Plateau, fängt jedoch ab einer gewissen Anzahl an layern an, stark abzufallen. Das heißt, insbesondere sind bei sehr tiefen Netzen sowohl der Trainings Error als auch der Test Error viel höher als bei gleichen, weniger tiefen Netzen.
 
-Eine Erklärung dafür könnte **Overfitting** sein. Vielleicht ist das Netz ab einem bestimmten Punkt so komplex, dass es anfängt, sich zu stark an den gegebenen Trainingsdatensatz anzupassen, ihn auswendig zu lernen oder sich zu sehr auf Rauschen in den Daten zu konzentrieren, sodass es nicht mehr gut generalisiert. Overfitting kann man hier jedoch ausschließen, da nicht nur der Test Error, sondern auch der Trainings Error höher ist, das Netz also noch nicht einmal die Trainingsdaten gut erfasst. Das bedeutet auch, dass weder Dropout noch andere Regularisierungsmaßnahmen gegen das degeneration problem helfen.
+![Degeneration Problem <a href="../Residual Networks/plain_vs_resnets.py">(Code)</a>](images/plain_net.png){ width=75% }
+
+Als Beispiel ist hier das Lernen der Sinus-Funktion mithilfe eines einfachen feed-forward Netzes mit je 30 Knoten pro layer dargestellt. Der Graph zeigt den Loss für unterschiedliche Anzahlen von hidden layers. Es ist zu beobachten, dass der Loss anfänglich zwar abnimmt, je mehr layer hinzufügt werden, doch ab 7 layern beginnt er wieder größer zu werden und steigt konstant an. Das Netz wird ab einem bestimmten Punkt durch immer mehr layer also nicht besser, sondern schlechter!
+
+Eine allgemeine Erklärung für das degeneration problem könnte **Overfitting** sein. Vielleicht ist das Netz ab einem bestimmten Punkt so komplex, dass es anfängt, sich zu stark an den gegebenen Trainingsdatensatz anzupassen, ihn auswendig zu lernen oder sich zu sehr auf Rauschen in den Daten zu konzentrieren, sodass es nicht mehr gut generalisiert. Overfitting kann man hier jedoch ausschließen, da nicht nur der Test Error, sondern auch der Trainings Error höher ist, das Netz also noch nicht einmal die Trainingsdaten gut erfasst. Das bedeutet auch, dass weder Dropout noch andere Regularisierungsmaßnahmen gegen das degeneration problem helfen.
 
 Eine weitere Erklärung ist das Problem von **vanishing/exploding gradients**. Da im backpropagation Schritt die Gradienten der loss-Funktion mithilfe die Kettenregel ermittelt werden und somit bei tiefen Netzen sehr viele Terme miteinander multipliziert werden, kann das Ergebnis bei sehr kleinen Zwischenwerten sehr klein (oder 0) und bei großen sehr groß werden, sodass die Konvergenz behindert wird und das Training somit fehlschlägt. Dieses Problem ist tatsächlich manchmal der Grund, warum das degeneration problem auftritt, jedoch lässt sich zeigen, dass selbst durch Nutzung von batch normalization und Ausschließen von vanishing/exploding gradients das degeneration problem in der Praxis trotzdem weiterhin auftritt.
 
@@ -84,7 +86,7 @@ Doch wie genau wird dies in einem ResNet umgesetzt und wie sieht ein ResNet übe
 
 ### Aufbau eines ResNets
 
-![Aufbau eines ResNet-Blocks](../images/resnet_block.png){ width=55% }
+![Aufbau eines ResNet-Blocks](../images/resnet_block.png){ width=45% }
 
 Ein **ResNet** besteht aus einer Reihe von hintereinander geschalteten **ResNet-Blöcken** (s. Abbildung oben). Ein ResNet-Block umfasst typischerweise zwei bis drei normale hidden layer, das könnten beispielsweise zwei Convolutional layer mit anschließenden pooling und batch normalization layern sein wie im Beispiel unten. Es müssen mindestens zwei sein, da sie sich ansonsten nicht von normalen linearen Netzen unterscheiden würden. <span class="mark">Das besondere an ResNets sind jedoch die sogenannten 'shortcut-' oder **'skip-connections'**,</span> welche die Eingabe in die layer weiter nach vorne transportieren wo diese zu der Ausgabe aufaddiert werden, in der Regel noch bevor die Aktivierungsfunktion angewandt wird.
 
@@ -143,11 +145,13 @@ Die folgende Abbildung stellt das durch das Original-Paper bekannt gewordene **1
 
 ### Performances von ResNets
 
-![Performance von ResNet<sup>1</sup>](../images/res_net.png){ width=75% }
+Betrachten wir noch einmal das Beispiel aus dem Kapitel über das degeneration problem, dem Lernen der Sinus-Funktion. Nutzt man nun das genau gleiche Netzwerk, fügt jedoch eine skip-connection ohne Gewichte über alle drei layer ein, so beobachtet man ein ganz anderes erstaunliches Ergebnis. Der Loss nimmt immer weiter ab und bleibt unten, auch bei einer großen Anzahl an layern! Es scheint, als würde das Netzwerk mit jedem weiteren layer tendenziell besser werden.
 
-Und tatsächlich sind sehr tiefe ResNets ziemlich effizient trainierbar und erzielen gute Resultate. Wie in der obigen Abbildung zu erkennen <span class="mark">scheinen ResNets nicht vom degeneration problem betroffen zu sein.</span> Das Hinzufügen von mehr layern führt tatsächlich zu einem **niedrigeren Fehler und besserer Performance**, sowohl auf den Trainings- als auch auf den Testdaten. Tiefe ResNets erweisen sich als mindestens genauso gut und sogar besser als weniger tiefe, alle zusätzlichen layer nutzen scheinbar ihr Potential, die Performance zu verbessern.
+![Performance eines einfachen Netzes vs ResNets <a href="../Residual Networks/plain_vs_resnets.py">(Code)</a>](../images/res_net.png){ width=75% }
 
-![ImageNet competition: ResNet-152 überholt alle anderen](images/imagenet_competition2.png){ width=65% }
+Und tatsächlich sind sehr tiefe ResNets im Allgemeinen ziemlich effizient trainierbar und erzielen gute Resultate. Wie in der obigen Abbildung zu erkennen <span class="mark">scheinen ResNets nicht vom degeneration problem betroffen zu sein.</span> Das Hinzufügen von mehr layern führt tatsächlich zu einem **niedrigeren Fehler und besserer Performance**, sowohl auf den Trainings- als auch auf den Testdaten. Tiefe ResNets erweisen sich als mindestens genauso gut und sogar besser als weniger tiefe, alle zusätzlichen layer nutzen scheinbar ihr Potential, die Performance zu verbessern.
+
+![ImageNet competition: ResNet-152 überholt alle anderen](images/imagenet_competition2.png){ width=60% }
 
 Wie in der Abbildung zu erkannen, gewannen ResNets mit dem berühmten ResNet-152 die **ImageNet comepetition** im Jahre 2015 mit einem Fehler von nur 3.57% und lösten damit das bis daher beste GoogLeNet mit einem Fehler von 6.7% und 22 layern deutlich ab. Interessanterweise hatte das ResNet-152 viel weniger Parameter als die anderen Wettbewerber und somit auch schneller trainierbar, war jedoch mit 152 layern sehr viel tiefer. Mehr dazu findet sich im übernächsten Kapitel zum Training von ResNets.
 
