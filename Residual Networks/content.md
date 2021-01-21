@@ -1,5 +1,6 @@
 ---
 title: Residual Neural Networks
+subtitle: Trainieren von sehr tiefen Netzen
 author: Alexander Kowsik
 date: 20.01.2021
 
