@@ -21,7 +21,7 @@ Bevor wir uns genauer anschauen, wie ResNets aussehen und funktionieren, betrach
 
 Um zu verstehen, warum tiefe Netze oftmals bessere Performances liefern als weniger tiefe Netze, ist es hilfreich, sich noch einmal vor Augen zu führen, wie und warum ein tiefes neuronal Netz überhaupt funktioniert, hier mal am Beispiel von **Convolutional Neural Networks**.
 
-![Die layer eines CNNs visualisiert](images/deepNetVis.png){ width=90% }
+![Die layer eines CNNs visualisiert](images/cnn_vis.png){ width=100% }
 
 Ein ConvNet besteht in der Regel aus mehrern hintereinander geschalteten convolutional layern mit anschließenden pooling- und batch-normalization layern. Am Ende des Netzwerkes finden sich meistens einige wenige fully-connected layer, die beispielsweise in einem Ausgabe-layer zur Klassifikation enden können. Die Idee für ConvNets entspringt aus den Erkenntnissen der klassischen Computergrafik, da die zu lernende Gewichte eines ConvNets die Parameter von linearen Filtern sind, die genutzt werden können, um Strukturen in einem Bild zu erkennen.
 
