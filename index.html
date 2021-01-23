@@ -44,7 +44,7 @@ Bevor wir uns genauer anschauen, wie ResNets aussehen und funktionieren, betrach
 <img src="images/imagenet_competition.png" style="width:60.0%" alt="" /><figcaption>ImageNet competition: Test error (blau) und Anzahl der Layer (orange)</figcaption>
 </figure>
 <p>Betrachtet man die <strong>ImageNet competition</strong> bist zum Jahr 2015, so stellt man fest, dass die Architekturen mit den besten Ergebnissen von Jahr zu Jahr immer tiefer wurden. Auch an anderen Datensätzen war dies erkennbar - tiefere Netze erreichten bessere Genauigkeiten.</p>
-<p>Mit diesen Beobachtungen könnte man schlussfolgern, dass tiefe Netze immer besser sind, also die Lösung für schlechte Performance einfach stets “mehr Layer” sein könnte. Doch dem ist im Allgemeinen nicht so.</p>
+<p>Mit diesen Beobachtungen könnte man schlussfolgern, dass tiefe Netze immer besser sind, also die Lösung für schlechte Performance einfach stets “mehr Layer” sein könnte. Doch dem ist im Allgemeinen jedoch nicht so.</p>
 <h3 id="das-problem-mit-sehr-tiefen-netzen">Das Problem mit sehr tiefen Netzen</h3>
 <p>Es hat sich herausgestellt, dass das Training von sehr tiefen Netzen, also von Netzen mit über ungefähr 25 oder 30 Schichten, Probleme bereitet und nicht mehr ohne weiteres möglich ist. Warum ist das so?</p>
 <p><mark>Der Hauptgrund dafür ist ein Umstand der als <strong>‘degeneration problem’</strong> bekannt ist.</mark> Das Hinzufügen von weiteren Layern verbessert zwar zunächst die Trainierbarkeit und Performance eines Netzes, letztere erreicht erwartungsgemäß irgendwann ein gewisses Plateau, fängt jedoch ab einer gewissen Anzahl an Layern an, stark abzufallen. Das heißt, insbesondere sind bei sehr tiefen Netzen sowohl der Trainings-Error als auch der Test-Error viel höher als bei gleichen, weniger tiefen Netzen.</p>
@@ -63,7 +63,7 @@ Ein Beispiel: bei einem 3x3 linearen Filter wäre die Identitätsfunktion</p>
 <figure>
 <img src="images/3x3.png" style="width:20.0%" alt="" /><figcaption>Identität bei 3x3 convolutions</figcaption>
 </figure>
-<p>damit müssen alle 9 Gewichte richtig gelernt werden. Ein solver findet in der gegebenen Trainingszeit und mit den vorhanden Trainingsdaten somit meistens keinen Weg dazu. <mark>Dadurch entstehen durch mehr Layer auch solche Layer, die der Performance des gesamten Netzes schaden, anstatt sie zu verbessern.</mark></p>
+<p>damit müssen alle 9 Gewichte richtig gelernt werden. Ein solver findet in der gegebenen Trainingszeit und mit den vorhanden Trainingsdaten somit meistens keinen Weg dazu, auch weil die Anzahl der Parameter zu groß wird. <mark>Dadurch entstehen durch mehr Layer auch solche Layer, die der Performance des gesamten Netzes schaden, anstatt sie zu verbessern.</mark></p>
 <p>Genau hier setzen die Residual Networks an und bieten eine Lösung für eben dieses Problem.</p>
 <h2 id="residual-networks">Residual Networks</h2>
 <h3 id="das-lernen-von-residuen">Das Lernen von Residuen</h3>

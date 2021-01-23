@@ -36,7 +36,7 @@ Dieser Trend, immer mehr Schichten zu benutzen um die Performance für eine best
 
 Betrachtet man die **ImageNet competition** bist zum Jahr 2015, so stellt man fest, dass die Architekturen mit den besten Ergebnissen von Jahr zu Jahr immer tiefer wurden. Auch an anderen Datensätzen war dies erkennbar - tiefere Netze erreichten bessere Genauigkeiten.
 
-Mit diesen Beobachtungen könnte man schlussfolgern, dass tiefe Netze immer besser sind, also die Lösung für schlechte Performance einfach stets "mehr Layer" sein könnte. Doch dem ist im Allgemeinen nicht so.
+Mit diesen Beobachtungen könnte man schlussfolgern, dass tiefe Netze immer besser sind, also die Lösung für schlechte Performance einfach stets "mehr Layer" sein könnte. Doch dem ist im Allgemeinen jedoch nicht so.
 
 ### Das Problem mit sehr tiefen Netzen
 
@@ -61,7 +61,7 @@ Ein Beispiel: bei einem 3x3 linearen Filter wäre die Identitätsfunktion
 
 ![Identität bei 3x3 convolutions](images/3x3.png){ width=20% }
 
-damit müssen alle 9 Gewichte richtig gelernt werden. Ein solver findet in der gegebenen Trainingszeit und mit den vorhanden Trainingsdaten somit meistens keinen Weg dazu. <span class="mark">Dadurch entstehen durch mehr Layer auch solche Layer, die der Performance des gesamten Netzes schaden, anstatt sie zu verbessern.</span>
+damit müssen alle 9 Gewichte richtig gelernt werden. Ein solver findet in der gegebenen Trainingszeit und mit den vorhanden Trainingsdaten somit meistens keinen Weg dazu, auch weil die Anzahl der Parameter zu groß wird. <span class="mark">Dadurch entstehen durch mehr Layer auch solche Layer, die der Performance des gesamten Netzes schaden, anstatt sie zu verbessern.</span>
 
 Genau hier setzen die Residual Networks an und bieten eine Lösung für eben dieses Problem.
 
