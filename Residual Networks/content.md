@@ -154,7 +154,7 @@ Und tatsächlich sind sehr tiefe ResNets im Allgemeinen ziemlich effizient train
 
 Wie in der Abbildung zu erkennen, gewannen ResNets mit dem berühmten ResNet-152 die **ImageNet comepetition** im Jahre 2015 mit einem Fehler von nur 3.57% und lösten damit das bis dahin beste GoogLeNet mit einem Fehler von 6.7% und 22 Schichten deutlich ab. Interessanterweise hatte das ResNet-152 viel weniger Parameter als die anderen Wettbewerber und war somit auch schneller trainierbar, jedoch mit 152 Schichten sehr viel tiefer. Mehr dazu findet sich im übernächsten Kapitel zum Training von ResNets.
 
-Seitdem konnten Architekturen von **über 1000 Layern** erfolgreich trainiert werden, und im sehr theoretischen Umfeld auch Netze mit 2000+ Layern, sie werden in der Praxis jedoch nicht wirklich eingesetzt, da sie eher unpraktikabel sind. Denn auch ResNets haben ihre Grenzen. Ab einem bestimmten Punkt läuft man nämlich auch Gefahr, die Trainingsdaten zu overfitten, sodass die Performance auch bei ResNets irgendwann abnimmt und mehr Layer nicht mehr nützlich, sondern eher schädlich werden.
+Seitdem konnten Architekturen von **über 1000 Layern** erfolgreich trainiert werden, und im sehr theoretischen Umfeld auch Netze mit 2000+ Layern<sup>7</sup>, sie werden in der Praxis jedoch nicht wirklich eingesetzt, da sie eher unpraktikabel sind. Denn auch ResNets haben ihre Grenzen. Ab einem bestimmten Punkt läuft man nämlich auch Gefahr, die **Trainingsdaten zu overfitten**, sodass die Performance auch bei ResNets irgendwann abnimmt und mehr Layer nicht mehr nützlich, sondern eher schädlich werden. Desweiteren erhöht sich mit jedem Layer natürlich auch die Anzahl an Parametern, sodass das Training immer länger dauert und immer schwieriger wird.
 
 ### Warum genau funktioniert das nochmal?
 
@@ -162,7 +162,7 @@ Zum einen sind die guten Performances von ResNets auf den Umstand zurückzuführ
 
 Dadurch, dass gewisse Layer einfach übersprungen werden können, ähnelt das Training von ResNets dem **Training eines Ensembles**. Es erlaubt es, unterschiedliche Teile des Netzwerks zu unterschiedlichen Zeiten und Raten zu trainieren, abhängig davon, wie der Error im Netz zurückpropagiert wird. Somit können durch bestimmte Trainingsbeispiele auf natürliche Weise gezielt Teile des Netzes trainiert werden.
 
-Da nur Residuen gelernt werden, geschieht im Prinzip lediglich ein **fine-tuning des Inputs** in einen ResNet Block. Er wird von jedem Layer nur ein Stück weit angepasst, um näher an die zu lernende Idealfunktion zu kommen. Die erwartete Ausgabe muss somit nicht 'von scratch' generiert werden. Dies erklärt auch, warum das Hinzufügen von Layern die Performance noch weiter erhöht: der Input wird mit jedem Layer immer ein ganz kleines Stück verbessert - zumindest solange, bis man beispielsweise an Overfitting stößt.
+Da nur Residuen gelernt werden, geschieht im Prinzip lediglich ein **fine-tuning der Eingabe** in einen ResNet Block. Er wird von jedem Layer nur ein Stück weit angepasst, um näher an die zu lernende Idealfunktion zu kommen. Die erwartete Ausgabe muss somit nicht 'von scratch' generiert werden. Dies erklärt auch, warum das Hinzufügen von Layern die Performance noch weiter erhöht: der Input wird mit jedem Layer immer ein ganz kleines Stück verbessert - zumindest solange, bis man beispielsweise an Overfitting stößt.
 
 ### Training von ResNets
 
@@ -208,13 +208,15 @@ Doch auch ResNets haben ihre Grenzen, und man kommt ab einem gewissen Punkt zum 
 
 <sup>2</sup> Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun (2016), **Identity Mappings in Deep Residual Networks**. In: _Leibe B., Matas J., Sebe N., Welling M. (eds) Computer Vision_, ECCV 2016
 
-<sup>3</sup> Mohammad Sadegh Ebrahimi, Hossein Karkeh Abadi (2018), **Study of Residual Networks for Image Recognition**, _arXiv:1805.00325_, 21. April
+<sup>3</sup> Mohammad Sadegh Ebrahimi, Hossein Karkeh Abadi (2018), **Study of Residual Networks for Image Recognition**, _arXiv:1805.00325_, 21. April 2018
 
 <sup>4</sup> Gao Huang, Zhuang Liu, Laurens van der Maaten, Kilian Q. Weinberger (2017), **Densely Connected Convolutional Networks**, _2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)_, 2017, pp. 2261-2269
 
-<sup>5</sup> Rupesh Kumar Srivastava, Klaus Greff, Jürgen Schmidhuber (2015), **Highway Networks**, _arXiv:1505.00387_, 03. November
+<sup>5</sup> Rupesh Kumar Srivastava, Klaus Greff, Jürgen Schmidhuber (2015), **Highway Networks**, _arXiv:1505.00387_, 03. November 2015
 
 <sup>6</sup> Saining Xie; Ross Girshick; Piotr Dollár; Zhuowen Tu; Kaiming He (2017), **Aggregated Residual Transformations for Deep Neural Networks**, _2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)_, 2017, pp. 5987-5995
+
+<sup>7</sup> Ionut Cosmin Duta, Li Liu, Fan Zhu, Ling Shao (2020), **Improved Residual Networks for Image and Video Recognition**, arXiv:2004.04989v1, 10. April 2020
 </div>
 
 
