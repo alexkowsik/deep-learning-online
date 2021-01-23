@@ -44,7 +44,7 @@ Es hat sich herausgestellt, dass das Training von sehr tiefen Netzen, also von N
 
 <span class="mark">Der Hauptgrund dafür ist ein Umstand der als **'degeneration problem'** bekannt ist.</span> Das Hinzufügen von weiteren Layern verbessert zwar zunächst die Trainierbarkeit und Performance eines Netzes, letztere erreicht erwartungsgemäß irgendwann ein gewisses Plateau, fängt jedoch ab einer gewissen Anzahl an Layern an, stark abzufallen. Das heißt, insbesondere sind bei sehr tiefen Netzen sowohl der Trainings-Error als auch der Test-Error viel höher als bei gleichen, weniger tiefen Netzen.
 
-![Degeneration Problem <a href="../Residual Networks/plain_vs_resnets.py">(Code)</a>](images/plain_net.png){ width=75% }
+![Degeneration Problem <a href="../Residual Networks/code/plain_vs_resnets.py">(Code)</a>](images/plain_net.png){ width=75% }
 
 Als Beispiel ist hier das Lernen der Sinus-Funktion mithilfe eines einfachen feed-forward Netzes mit je 30 Knoten pro Layer dargestellt. Der Graph zeigt den Loss für unterschiedliche Anzahlen von hidden Layer. Es ist zu beobachten, dass der Loss anfänglich zwar abnimmt, je mehr Layer hinzufügt werden, doch ab 7 Layern beginnt er wieder größer zu werden und steigt konstant an. Das Netz wird ab einem bestimmten Punkt durch immer mehr Layer also nicht besser, sondern schlechter!
 
@@ -146,7 +146,7 @@ Die folgende Abbildung stellt das durch das Original-Paper bekannt gewordene **1
 
 Betrachten wir noch einmal das Beispiel aus dem Kapitel über das degeneration problem, dem Lernen der Sinus-Funktion. Nutzt man nun das genau gleiche Netzwerk, fügt jedoch eine skip-connection ohne Gewichte über alle drei Layer ein, so beobachtet man ein ganz anderes erstaunliches Ergebnis. Der Loss nimmt immer weiter ab und bleibt unten, auch bei einer großen Anzahl an Layern! Es scheint, als würde das Netzwerk mit jeder weiteren Schicht tendenziell besser werden.
 
-![Performance eines einfachen Netzes vs ResNets <a href="../Residual Networks/plain_vs_resnets.py">(Code)</a>](../images/res_net.png){ width=75% }
+![Performance eines einfachen Netzes vs ResNets <a href="../Residual Networks/code/plain_vs_resnets.py">(Code)</a>](../images/res_net.png){ width=75% }
 
 Und tatsächlich sind sehr tiefe ResNets im Allgemeinen ziemlich effizient trainierbar und erzielen gute Resultate. Wie in der obigen Abbildung zu erkennen <span class="mark">scheinen ResNets nicht vom degeneration problem betroffen zu sein.</span> Das Hinzufügen von mehr Layern führt tatsächlich zu einem **niedrigeren Fehler und besserer Performance**, sowohl auf den Trainings- als auch auf den Testdaten. Tiefe ResNets erweisen sich als mindestens genauso gut und sogar besser als weniger tiefe, alle zusätzlichen Layer nutzen scheinbar ihr Potential, die Performance zu verbessern.
 
