@@ -16,7 +16,7 @@ header-includes:
 Bei <span class="mark">**Residual Neural Networks**</span>, oder kurz _ResNets_, handelt es sich um eine bestimmte Art von neuronalen Netzen, die sich dadurch auszeichnen, dass sie sehr viele hidden Layer besitzen, also äußerst 'tief' sind. Dabei sind sie trotzdem noch sehr effizient trainierbar und erzielen eine hohe Performances. Besondere Anwendung finden sie im Bereich der Bildklassifikation in Verbindung mit Convolutional Neural Networks (CNNs).  
 Bevor wir uns genauer anschauen, wie ResNets aussehen und funktionieren, betrachten wir zunächst das zentrale Problem, welches die Entwicklung von ResNets motiviert hat: das **Trainieren von sehr tiefen Netzen**. "Sehr tief" ist dabei im folgenden alles über ca. 25 hidden Layer. Wir schauen uns an, warum das in der Praxis normalerweise nur begrenzt möglich ist und wie ResNets das Problem lösen können.
 
-### Warum möchte man _tiefe_ neuronale Netze?
+### Wozu benötigt man _tiefe_ neuronale Netze?
 
 Um zu verstehen, warum tiefe Netze oftmals bessere Performances liefern als weniger tiefe Netze, ist es hilfreich, sich noch einmal vor Augen zu führen, wie und warum ein tiefes neuronal Netz überhaupt funktioniert, hier mal am Beispiel von **Convolutional Neural Networks**.
 
