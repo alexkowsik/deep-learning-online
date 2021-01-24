@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 
+# Results were taken from "Deep Residual Learning for Image Recognition"
+
 x = ["ILSVRC'10", "ILSVRC'11", "ILSVRC'12\nAlexNet", "ILSVRC'13", "ILSVRC'14\nVGG", "ILSVRC'14 \nGoogLeNet", "ILSVRC'15\nResNet"]
 y = [28.2, 25.8, 16.4, 11.7, 7.3, 6.7, 3.57]
 num_of_layers = [1.5, 2.5, 7.5, 8.5, 19, 22, 152]

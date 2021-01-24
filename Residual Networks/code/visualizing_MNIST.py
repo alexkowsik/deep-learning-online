@@ -7,7 +7,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.python.keras import backend as K
 
 
-# Code: http://everettsprojects.com/2018/01/17/mnist-visualization.html
+# Code based on http://everettsprojects.com/2018/01/17/mnist-visualization.html
 # pretrained MNIST Model: https://github.com/kj7kunal/MNIST-Keras
 
 
