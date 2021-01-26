@@ -7,9 +7,8 @@ header-includes:
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 ---
 
-<video width="100%" height="100%" controls>
-  <source src="Residual Networks/ResidualNetworks-Presentation.mp4" type="video/mp4">
-</video>
+<div id="vid">
+<iframe src="https://drive.google.com/file/d/188VBwWBlH7LihY3sFaKFKW8dql0YojRU/preview?resourcekey=null" height="100%" width="100%"></iframe></div>
 
 
 ## Motivation
